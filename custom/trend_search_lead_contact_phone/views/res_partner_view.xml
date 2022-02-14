@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+        <record id="view_res_partner_filter_phone_inherit" model="ir.ui.view">
+            <field name="name">view.res.partner.filter.phone.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="before">
+                    <field name="mobile" string="Phone numbers"
+                           filter_domain="['|', ('phone','ilike', self), ('mobile','ilike', self)]"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_activity_archive_sales,access_activity_archive_sales,model_mail_activity_archive,trend_realestate_access_rights.res_group_real_estate_property_consultant,1,0,0,0

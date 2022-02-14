@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="customer_readonly_form_inherit" model="ir.ui.view">
+            <field name="name">customer_readonly_form_inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group[1]/field[@name='partner_id']" position="attributes">
+                    <attribute name="readonly">True</attribute>
+                </xpath>
+                <xpath expr="//group/group[2]/field[@name='partner_id']" position="attributes">
+                    <attribute name="readonly">True</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="customer_admin_edit_form_inherit" model="ir.ui.view">
+            <field name="name">customer_admin_edit_form_inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="groups_id"
+                   eval="[(4, ref('trend_realestate_access_rights.res_group_real_estate_sales_admin'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group[1]/field[@name='partner_id']" position="attributes">
+                    <attribute name="readonly">False</attribute>
+                </xpath>
+                <xpath expr="//group/group[2]/field[@name='partner_id']" position="attributes">
+                    <attribute name="readonly">False</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

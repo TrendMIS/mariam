@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="crm_lead_type_form_view" model="ir.ui.view">
+            <field name="name">Crm lead type</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <field name="tag_ids" position="after">
+                    <field name="lead_type_id"/>
+                    <field name="create_uid" readonly="True"/>
+                    <field name="create_date"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="real_estate_project_type_form_View">
+            <field name="name">real.estate.project.type.form.view</field>
+            <field name="model">real.estate.project.type</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="real_estate_project_type_tree_View">
+            <field name="name">real.estate.project.type.tree.view</field>
+            <field name="model">real.estate.project.type</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="real_estate_project_type_action">
+            <field name="name">Real Estate Project Type</field>
+            <field name="res_model">real.estate.project.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+    </data>
+</odoo>

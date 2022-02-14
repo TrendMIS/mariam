@@ -1,0 +1,114 @@
+<odoo>
+    <data>
+        <template id="building_page" name="Building Details">
+            <html>
+                <head>
+                    <title>Building Details</title>
+                    <link rel="stylesheet"
+                          href="/trend_realestate_design/static/lib/css/bootstrap.min.css"/>
+                </head>
+                <body>
+                    <div class="row">
+                        <div class="col-2">
+                            <h2>Floors</h2>
+                        </div>
+                        <div class="col-10">
+                            <div class="text-center">
+                                <h1>
+                                    <span t-esc="building.name"/>
+                                    Plan
+                                </h1>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="nav flex-column nav-pills" id="v-floors-tab" role="tablist">
+                                <t t-foreach="building.floor_ids" t-as="floor">
+                                    <a class="nav-link" t-attf-id="v-floors-{{floor.id}}-tab" data-toggle="pill"
+                                       t-attf-href="#v-floors-{{floor.id}}" role="tab">
+                                        <span t-esc="floor.name"/>
+                                    </a>
+                                </t>
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <div class="tab-content" id="v-floors-tabContent">
+                                <t t-foreach="building.floor_ids" t-as="floor">
+                                    <div class="tab-pane fade" t-attf-id="v-floors-{{floor.id}}"
+                                         role="tabpanel">
+                                        <img t-att-src="image_data_uri(floor.plan_id.image)"
+                                             t-attf-usemap="#floor-map-{{floor.id}}"/>
+                                        <map t-attf-name="floor-map-{{floor.id}}">
+                                            <t t-foreach="floor.item_ids" t-as="line">
+
+                                                <t t-if="line.unit_id.state == 'sold'">
+                                                    <area shape="poly" data-toggle="modal" href="#"
+                                                          data-maphilight='{"fillColor":"FF0000", "alwaysOn":true}'
+                                                          t-att-coords="line.item_id.coordinates"
+                                                          t-att-alt="line.unit_id.name"
+                                                          t-att-title="line.unit_id.name"
+                                                          t-attf-data-target="#modal-unit-{{line.unit_id.id}}"
+                                                    />
+                                                </t>
+                                                <t t-if="line.unit_id.state == 'reserved'">
+                                                    <area shape="poly" data-toggle="modal" href="#"
+                                                          data-maphilight='{"fillColor":"FFFF00", "alwaysOn":true}'
+                                                          t-att-coords="line.item_id.coordinates"
+                                                          t-att-alt="line.unit_id.name"
+                                                          t-att-title="line.unit_id.name"
+                                                          t-attf-data-target="#modal-unit-{{line.unit_id.id}}"
+                                                    />
+                                                </t>
+                                                <t t-if="line.unit_id.state not in ['reserved', 'sold']">
+                                                    <area shape="poly" data-toggle="modal" href="#"
+                                                          t-att-coords="line.item_id.coordinates"
+                                                          t-att-alt="line.unit_id.name"
+                                                          t-att-title="line.unit_id.name"
+                                                          t-attf-data-target="#modal-unit-{{line.unit_id.id}}"
+                                                    />
+                                                </t>
+
+                                                <!-- Modal content-->
+                                                <div t-attf-id="modal-unit-{{line.unit_id.id}}" class="modal fade"
+                                                     tabindex="-1" role="dialog">
+                                                    <div class="modal-dialog">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">
+                                                                    <t t-esc="line.unit_id.name"/>
+                                                                </h4>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <p t-foreach="building.fields_ids" t-as="field">
+                                                                    <t t-set="field_value" t-value="getattr(line.unit_id, field.name)"/>
+                                                                    <t t-esc="field.field_description"/>:
+                                                                    <t t-esc="getattr(field_value, 'name', field_value)"/>
+                                                                </p>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-default"
+                                                                        data-dismiss="modal">Close
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </t>
+                                        </map>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+                    <script src="/trend_realestate_design/static/lib/js/jquery.min.js"></script>
+                    <script src="/trend_realestate_design/static/lib/js/popper.min.js"></script>
+                    <script src="/trend_realestate_design/static/lib/js/bootstrap.min.js"></script>
+                    <script src="/trend_realestate_design/static/lib/js/jquery.maphilight.js"></script>
+                    <script src="/trend_realestate_design/static/src/js/building.js"></script>
+                </body>
+            </html>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="broker_commission_program_form_view" model="ir.ui.view">
+            <field name="name">broker.commission.program.form</field>
+            <field name="model">broker.commission.program</field>
+            <field name="arch" type="xml">
+                <form string="Broker Commission Program">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1>
+                                <field name="name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="applied_on" class="oe_inline" widget="radio"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Targets">
+                                <field name="line_ids">
+                                    <tree editable="1">
+                                        <field name="target_from"/>
+                                        <field name="target_to"/>
+                                        <field name="commission_percentage"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="broker_commission_program_tree_view" model="ir.ui.view">
+            <field name="name">Broker Commission Program</field>
+            <field name="model">broker.commission.program</field>
+            <field name="arch" type="xml">
+                <tree string="Broker Commission Program">
+                    <field name="name"/>
+                    <field name="applied_on" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="broker_commission_program_action" model="ir.actions.act_window">
+            <field name="name">Broker Commission Program</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">broker.commission.program</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="broker_commission_program_config"
+                  name="Broker Commission Program"
+                  parent="sale.menu_sale_config"
+                  action="broker_commission_program_action"
+                  sequence="100"/>
+    </data>
+</odoo>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="design_floor_form" model="ir.ui.view">
+            <field name="name">design_floor_form</field>
+            <field name="model">design.floor</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="building_id"/>
+                            <field name="project_id"/>
+                            <field name="plan_id" domain="[('project_id', '=', project_id)]"/>
+                            <field name="item_ids">
+                                <tree editable="bottom">
+                                    <field name="item_id"/>
+                                    <field name="unit_id"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="design_floor_tree" model="ir.ui.view">
+            <field name="name">design_floor_tree</field>
+            <field name="model">design.floor</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="building_id"/>
+                    <field name="project_id"/>
+                    <field name="plan_id"/>
+                </tree>
+            </field>
+        </record>
+        <record id="design_floor_action" model="ir.actions.act_window">
+            <field name="name">Floors</field>
+            <field name="res_model">design.floor</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="design_floor_menu" name="Floors"
+                  action="design_floor_action" parent="realestate_design_menu"/>
+    </data>
+</odoo>

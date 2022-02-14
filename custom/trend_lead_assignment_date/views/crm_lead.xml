@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="crm_lead_view_assignment_date" model="ir.ui.view">
+            <field name="name">crm.lead.assignment.date</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr='//field[@name="user_id"]' position='after'>
+                    <field name="first_assignee_readonly" invisible="1"/>
+                </xpath>
+                <xpath expr='//field[@name="day_open"]' position='before'>
+                    <field name="date_open"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="crm_lead_view_first_assignee_form_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.first.assignee.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="trend_lead_first_assignee.crm_lead_view_first_assignee_form"/>
+            <field name="arch" type="xml">
+                <xpath expr='//field[@name="first_assignee_id"]' position='replace'>
+                    <field name="first_assignee_id"  attrs="{'readonly': [('first_assignee_readonly', '=', True)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

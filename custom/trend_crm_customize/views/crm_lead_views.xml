@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="quick_create_opportunity_inherit_form" model="ir.ui.view">
+            <field name="name">crm.lead.form.quick_create</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.quick_create_opportunity_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="source_id" required="1"/>
+                    <field name="medium_id" string="Sub-Source"/>
+                </xpath>
+            </field>
+        </record>
+
+        <menuitem id="marketing_configuration_menu" name="Marketing" parent="crm.crm_menu_config" sequence="20"/>
+
+        <menuitem id="source_menu" name="Source" parent="marketing_configuration_menu" action="utm.utm_source_action"
+                  sequence="1"/>
+        <menuitem id="medium_menu" name="Sub Source" parent="marketing_configuration_menu"
+                  action="utm.utm_medium_action" sequence="2"/>
+        <menuitem id="campaigns_menu" name="Campaigns" parent="marketing_configuration_menu"
+                  action="utm.utm_campaign_action" sequence="3"/>
+
+    </data>
+</odoo>

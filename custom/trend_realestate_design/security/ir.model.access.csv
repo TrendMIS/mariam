@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_design_building,access_design_building,model_design_building,,1,1,1,1
+access_design_floor,access_design_floor,model_design_floor,,1,1,1,1
+access_design_floor_item,access_design_floor_item,model_design_floor_item,,1,1,1,1
+access_design_plan,access_design_plan,model_design_plan,,1,1,1,1
+access_design_plan_item,access_design_plan_item,model_design_plan_item,,1,1,1,1

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="mail_activity_view_form_popup_attendees" model="ir.ui.view">
+            <field name="name">mail.mail_activity_view_form_popup_attendees</field>
+            <field name="model">mail.activity</field>
+            <field name="inherit_id" ref="mail.mail_activity_view_form_popup"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="attendees_ids" widget="many2many_tags"
+                           attrs="{'invisible': [('activity_type_id', '!=', %(mail_activity_data_email)d)]}"/>
+                </field>
+                <field name="activity_type_id" position="after">
+                    <field name="visit_type"
+                           attrs="{'invisible': [('activity_type_id', '!=', %(mail_activity_data_email)d)]}"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

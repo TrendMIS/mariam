@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="paperformat_cheque_no_margin" model="report.paperformat">
+            <field name="name">Cheque A4 without borders</field>
+            <field name="default" eval="False"/>
+            <field name="format">A4</field>
+            <field name="orientation">Portrait</field>
+            <field name="margin_top">2</field>
+            <field name="margin_bottom">0</field>
+            <field name="margin_left">0</field>
+            <field name="margin_right">0</field>
+            <field name="header_line" eval="False"/>
+            <field name="header_spacing">0</field>
+        </record>
+
+        <report
+                id="report_cheque"
+                model="normal.payments"
+                string=" Print Cheques"
+                name="trend_print_cheques.report_cheque_pdf_view"
+                file="trend_print_cheques.report_cheque_pdf_view"
+                report_type="qweb-pdf"
+                paperformat="paperformat_cheque_no_margin"/>
+
+        <report
+                id="report_cheque_view"
+                model="normal.payments"
+                string="View Cheques"
+                name="trend_print_cheques.report_cheque_html_view"
+                file="trend_print_cheques.report_cheque_html_view"
+                report_type="qweb-pdf"
+                paperformat="paperformat_cheque_no_margin"/>
+
+        <template id="report_cheque_pdf_view">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <t t-set="counter" t-value="0"/>
+                        <t t-foreach="doc.pay_check_ids" t-as="line">
+                            <div style="position:relative;width:100%;text-align:center;z-index:1000;">
+                                <t t-raw="line.nom_pay_id.cheque_format_id.get_html_style()"/>
+                                <t t-raw="line.nom_pay_id.cheque_format_id.get_html_date(line.check_date)"/>
+                                <t t-raw="line.nom_pay_id.cheque_format_id.get_html_source('Egypt')"/>
+                                <t t-raw="line.nom_pay_id.cheque_format_id.get_html_recipient(doc.recipient_name)"/>
+                                <t t-raw="line.nom_pay_id.cheque_format_id.get_html_amount(line.amount)"/>
+                                <t t-raw="line.nom_pay_id.cheque_format_id.get_html_text_amount(line.amount)"/>
+                                <t t-raw="line.nom_pay_id.cheque_format_id.get_html_signatory(doc.partner_id.name)"/>
+                            </div>
+                            <div style="top:400px;position:relative;">
+                                <t t-esc="counter"/>
+                            </div>
+                            <t t-set="counter" t-value="counter + 1"/>
+                            <t t-if="counter != len(doc.pay_check_ids)">
+                                <p style="page-break-after: always;"/>
+                            </t>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+        <template id="report_cheque_html_view">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page">
+                        <t t-set="counter" t-value="0"/>
+                        <t t-foreach="doc.pay_check_ids" t-as="line">
+                            <div style="position:relative;width:100%;text-align:center;z-index:1000;">
+                                <t t-raw="line.nom_pay_id.cheque_format_id.get_html_style()"/>
+                                <img t-att-src="image_data_uri(line.nom_pay_id.cheque_format_id.cheque_img)"
+                                     style="width:100%; height:10cm;"/>
+                                <t t-raw="line.nom_pay_id.cheque_format_id.get_html_date(line.check_date)"/>
+                                <t t-raw="line.nom_pay_id.cheque_format_id.get_html_source('Egypt')"/>
+                                <t t-raw="line.nom_pay_id.cheque_format_id.get_html_recipient(doc.recipient_name)"/>
+                                <t t-raw="line.nom_pay_id.cheque_format_id.get_html_amount(line.amount)"/>
+                                <t t-raw="line.nom_pay_id.cheque_format_id.get_html_text_amount(line.amount)"/>
+                                <t t-raw="line.nom_pay_id.cheque_format_id.get_html_signatory(doc.partner_id.name)"/>
+                            </div>
+                            <div style="top:400px;position:relative;">
+                                <t t-esc="counter"/>
+                            </div>
+                            <t t-set="counter" t-value="counter + 1"/>
+                            <t t-if="counter != len(doc.pay_check_ids)">
+                                <p style="page-break-after: always;"/>
+                            </t>
+                        </t>
+                    </div>
+                </t>
+            </t>
+        </template>
+
+
+    </data>
+</odoo>

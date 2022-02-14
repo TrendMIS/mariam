@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_real_estate_project,access.real.estate.project,model_real_estate_project,,1,1,1,0
+access_real_estate_project_type,access.real.estate.project.type,model_real_estate_project_type,,1,1,1,1
+access_real_estate_project_unit_type,access.real.estate.project.unit.type,model_real_estate_project_unit_type,,1,1,1,1
+access_real_estate_project_image,access.real.estate.project.image,model_real_estate_project_image,,1,1,1,1
+access_project_facility,access.project.facility,model_project_facility,,1,1,1,1

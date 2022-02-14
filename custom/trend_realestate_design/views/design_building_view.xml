@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="design_building_form" model="ir.ui.view">
+            <field name="name">design_building_form</field>
+            <field name="model">design.building</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <button name="view_plan" type="object" string="View Building Plan"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="project_id"/>
+                            <field name="floor_ids" widget="many2many_tags"/>
+                            <field name="fields_ids" widget="many2many_tags" domain="[('model', '=', 'product.product')]"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="design_building_action" model="ir.actions.act_window">
+            <field name="name">Buildings</field>
+            <field name="res_model">design.building</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="realestate_design_menu" name="Plan Designs" parent="sale.sale_menu_root"/>
+
+        <menuitem id="design_building_menu" name="Buildings"
+                  action="design_building_action" parent="realestate_design_menu"/>
+    </data>
+</odoo>

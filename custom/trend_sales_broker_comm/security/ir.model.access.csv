@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sale_broker_commission,sale_broker_commission,model_sale_broker_commission,,1,1,1,1
+access_broker_commission_program,broker_commission_program,model_broker_commission_program,,1,1,1,1
+access_broker_commission_program_line,broker_commission_program_line,model_broker_commission_program_line,,1,1,1,1
+access_commission_sale_info,access_commission_sale_info,model_commission_sale_info,,1,1,1,1

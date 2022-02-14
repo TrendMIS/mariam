@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--sale-->
+        <record model="ir.ui.menu" id="sale.sales_team_config">
+            <field name="name">Sales Teams</field>
+        </record>
+        <record model="ir.ui.menu" id="sale.report_sales_team">
+            <field name="name">Sales Teams</field>
+        </record>
+        <record model="ir.actions.act_window" id="sale.report_all_channels_sales_action">
+            <field name="name">All Teams Sales Orders</field>
+        </record>
+
+        <!--crm-->
+        <record model="ir.ui.menu" id="crm.crm_team_config">
+            <field name="name">Sales Teams</field>
+        </record>
+
+        <menuitem id="units_phases_menu"
+                  name="Unit Phase"
+                  parent="crm.crm_menu_config"
+                  sequence="7"
+                  action="unit_phase_action"
+                  />
+
+    </data>
+</odoo>

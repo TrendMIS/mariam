@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <template id="report_invoice_document_lead_inherit" inherit_id="account.report_invoice_document">
+            <xpath expr="//h2[1]" position="after">
+                <t t-if="o.crm_lead_id">
+                    <div class="row mt32 mb32">
+                        <div class="col-xs-2">
+                            <strong>Formal Company:</strong>
+                            <p t-field="o.formal_company_name"/>
+                        </div>
+                        <div class="col-xs-2">
+                            <strong>Project:</strong>
+                            <p t-field="o.crm_lead_id.name.display_name"/>
+                        </div>
+                        <div class="col-xs-2">
+                            <strong>Unit Owner:</strong>
+                            <p t-field="o.lead_unit_owner"/>
+                        </div>
+                        <div class="col-xs-2">
+                            <strong>Unit Number:</strong>
+                            <p t-field="o.lead_unit_number"/>
+                        </div>
+                    </div>
+                </t>
+            </xpath>
+        </template>
+    </data>
+</odoo>

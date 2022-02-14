@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="view_partner_form_personal_info_inherit" model="ir.ui.view">
+            <field name="name">view_partner_form_personal_info_inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="trend_realestate_contact.view_partner_form_personal_info_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr='//field[@name="is_broker"]' position='after'>
+                    <field name="broker_commercial_register" attrs="{'invisible': [('is_broker', '=', False)]}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

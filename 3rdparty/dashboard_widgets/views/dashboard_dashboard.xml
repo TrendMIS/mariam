@@ -1,0 +1,87 @@
+<odoo>
+    <record id="is_dashboard_tree_view" model="ir.ui.view">
+        <field name="name">is.dashboard.tree.view</field>
+        <field name="model">is.dashboard</field>
+        <field name="arch" type="xml">
+            <tree create="0" editable="bottom">
+                <field name="name"/>
+                <field name="widget_ids" widget="many2many_tags" readonly="1"/>
+                <field name="menu_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="is_dashboard_form_settings_view" model="ir.ui.view">
+        <field name="name">is.dashboard.form.settings.view</field>
+        <field name="model">is.dashboard</field>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="name"/>
+                    <group string="Auto-Refresh">
+                        <label for="auto_refresh"/>
+                        <div>
+                            <field name="auto_refresh" class="oe_inline" style="width: 40px !important;"/> seconds
+                            (<field name="auto_refresh_type" class="oe_inline"/>)
+                        </div>
+                    </group>
+                    <group string="Advanced">
+                        <field name="menu_id"/>
+                    </group>
+                </group>
+                <group string="Dashboard Items">
+                    <field name="add_widget_id" domain="[('id', 'not in', widget_ids)]"/>
+                    <field name="widget_ids" nolabel="1" colspan="2" readonly="1" groups="base.group_no_one"/>
+                </group>
+                <footer>
+                    <button name="action_refresh" string="Save" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="is_dashboard_form_view" model="ir.ui.view">
+        <field name="name">is.dashboard.form.view</field>
+        <field name="model">is.dashboard</field>
+        <field name="priority" eval="10"/>
+        <field name="arch" type="xml">
+            <form create="0">
+                <header groups="dashboard_widgets.group_dashboard_editor_manager">
+                    <button name="action_refresh" string="Refresh" icon="fa-refresh" type="object" class="btn-primary"/>
+                    <button name="action_add_card" string="Add KPI Card" type="object"/>
+                    <button name="action_add_chart" string="Add Chart" type="object"/>
+                    <button name="action_add_table" string="Add Table" type="object"/>
+                    <button name="action_add_record" string="Add Record List" type="object"/>
+                    <button name="action_add_embedded_content" string="Add Embedded Content" type="object"/>
+                    <button name="action_open_settings" string="Settings" type="object"/>
+                </header>
+                <div colspan="2" class="text-center">
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                </div>
+                <field name="auto_refresh" invisible="1"/>
+                <field name="auto_refresh_type" invisible="1"/>
+                <field name="widget_ids" widget="many2many_dashboards" nolabel="1" colspan="2" force_save="1"/>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_is_dashboard" model="ir.actions.act_window">
+        <field name="name">Dashboards</field>
+        <field name="res_model">is.dashboard</field>
+
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="is_dashboard_form_action" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">is.dashboard</field>
+
+        <field name="view_mode">form</field>
+    </record>
+
+    <menuitem id="menu_dashboard_list" parent="menu_dashboard" name="Dashboards" action="action_is_dashboard" sequence="5"/>
+</odoo>

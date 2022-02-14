@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="normal_payments_check_inherit_form_view" model="ir.ui.view">
+            <field name="name">noraml.payments.form</field>
+            <field name="model">normal.payments</field>
+            <field name="inherit_id" ref="check_management.normal_payments_check_form_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='receipt_number']" position="after">
+                    <field name="cheque_format_id"/>
+                    <field name="recipient_name"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

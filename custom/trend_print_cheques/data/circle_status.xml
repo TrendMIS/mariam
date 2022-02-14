@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="running" model="circle.status">
+            <field name="name">Running</field>
+        </record>
+
+        <record id="withdrawn" model="circle.status">
+            <field name="name">Withdrawn</field>
+        </record>
+
+        <record id="frozen" model="circle.status">
+            <field name="name">Frozen</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="standard_payment_plan_action" model="ir.actions.act_window">
+            <field name="name">Standard Payment Plan</field>
+            <field name="res_model">standard.payment.plan</field>
+        </record>
+        <record id="payment_plan_form_view" model="ir.ui.view">
+            <field name="name">Payment plan Form View</field>
+            <field name="model">standard.payment.plan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="contract_signing_per"/>
+                                <field name="delivery_percentage"/>
+                            </group>
+                            <group>
+                                <field name="no_of_installments"/>
+                                <field name="installments_frequency"/>
+                                <label for="first_installment_after"/>
+                                <div>
+                                    <field name="first_installment_after" class="oe_inline"/>
+                                    Months
+                                </div>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="payment_plan_tree_view" model="ir.ui.view">
+            <field name="name">Payment plan Tree View</field>
+            <field name="model">standard.payment.plan</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="contract_signing_per"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <menuitem id="standard_payment_plan" name="Standard Payment Plan" action="standard_payment_plan_action"
+                  parent="sale.menu_sale_config"/>
+    </data>
+</odoo>

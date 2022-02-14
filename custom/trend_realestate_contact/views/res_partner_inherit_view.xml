@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="seq_customer_code" model="ir.sequence">
+            <field name="name">Customer Code</field>
+            <field name="code">customer.code</field>
+            <field name="prefix">C-</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_vendor_code" model="ir.sequence">
+            <field name="name">Vendor Code</field>
+            <field name="code">vendor.code</field>
+            <field name="prefix">V-</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_broker_code" model="ir.sequence">
+            <field name="name">Broker Code</field>
+            <field name="code">broker.code</field>
+            <field name="prefix">B-</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="view_res_partner_filter_mobile_inherit" model="ir.ui.view">
+            <field name="name">view.res.partner.filter.mobile.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <filter name="type_person" position="after">
+                    <filter name="mobile" string="Mobile" domain="[]" context="{'group_by' : 'mobile'}"/>
+                </filter>
+
+                <field name="user_id" position="after">
+                    <field name="mobile"/>
+                    <field name="customer_code"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_partner_tree_mobile_inherit" model="ir.ui.view">
+            <field name="name">view.partner.tree.mobile.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <field name="phone" position="after">
+                    <field name="mobile"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_partner_form_personal_info_inherit" model="ir.ui.view">
+            <field name="name">view.partner.form.personal.info.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="function" position="before">
+                    <field name="customer_code"/>
+                </field>
+
+                <field name="user_id" position="before">
+                    <field name="customer"/>
+                </field>
+
+                <group name="sale" position="inside">
+                    <field name="customer"/>
+                </group>
+                <group name="purchase" position="inside">
+                    <field name="vendor"/>
+                </group>
+
+                <group name="misc" position="before">
+                    <group string="Info" name="add_info">
+                        <field name="developer"/>
+                        <field name="is_broker"/>
+                    </group>
+                </group>
+                <h1 position="after">
+                    <field name="formal_company_name" placeholder="Formal Company Name"
+                           attrs="{'invisible':[('developer','=',False)]}"/>
+                </h1>
+                <field name="mobile" position="attributes">
+                    <attribute name="required">1</attribute>
+                </field>
+                <notebook position="inside">
+                    <page string="Personal Info">
+                        <group>
+                            <group>
+                                <field name="gender"/>
+                                <field name="number_of_children"/>
+                                <field name="club_membership"/>
+                            </group>
+                            <group>
+                                <field name="birth_date"/>
+                                <field name="educational_degree"/>
+                            </group>
+                        </group>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</odoo>

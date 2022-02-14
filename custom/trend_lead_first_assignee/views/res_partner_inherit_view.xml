@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="crm_lead_view_first_assignee_form" model="ir.ui.view">
+            <field name="name">crm.lead.first.assignee.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr='//field[@name="user_id"]' position='after'>
+                    <field name="first_assignee_id" readonly="True"
+                           groups="trend_realestate_access_rights.res_group_real_estate_sales_team_leader,trend_realestate_access_rights.res_group_real_estate_sales_admin"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="crm_lead_view_first_assignee_manager_form" model="ir.ui.view">
+            <field name="name">crm.lead.first.assignee.manager.form</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm_lead_view_first_assignee_form"/>
+            <field name="groups_id"
+                   eval="[(4, ref('trend_realestate_access_rights.res_group_real_estate_sales_team_leader'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr='//field[@name="first_assignee_id"]' position='attributes'>
+                    <attribute name="readonly">False</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,10 @@
+<odoo>
+    <data>
+        <record id="alarm_one_minute" model="calendar.alarm">
+            <field name="name">Notification - 1 Minutes</field>
+            <field name="duration" eval="1"/>
+            <field name="interval">minutes</field>
+            <field name="alarm_type">notification</field>
+        </record>
+    </data>
+</odoo>

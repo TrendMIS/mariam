@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="real_estate_project_image_form_View">
+        <field name="name">real.estate.project.image.form.view</field>
+        <field name="model">real.estate.project.image</field>
+        <field name="arch" type="xml">
+            <form string="Project Images">
+                <sheet>
+                    <field name="image" widget="image" class="oe_avatar" options="{'size': [90, 90]}"/>
+                    <div class="oe_title">
+                        <label class="oe_edit_only" for="name" string="Image Name"/>
+                        <h1><field name="name" placeholder="Image Name" required="True"/></h1>
+                        <field name="real_estate_project_id" invisible="1"/>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    </data>
+</odoo>
