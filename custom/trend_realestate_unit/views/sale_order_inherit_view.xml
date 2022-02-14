@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_order_form_unit_inherit" model="ir.ui.view">
+        <field name="name">view.order.form.unit.inherit</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="state" position="before">
+                <button string="Reserve" type="action" name="%(realestate_reserve_wizard_action)d"
+                        attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}"/>
+                <button string="Contract" type="object" name="set_contract"
+                        attrs="{'invisible': [('state', 'not in', ['reserved'])]}"/>
+            </field>
+            <button name="action_confirm" position="attributes">
+                <attribute name="attrs">{'invisible': [('state', 'not in', ['contract'])]}</attribute>
+            </button>
+            <button name="action_draft" position="attributes">
+                <attribute name="states">cancel,reserved</attribute>
+            </button>
+
+            <field name="state" position="attributes">
+                <attribute name="statusbar_visible">draft,sent,reserved,sale</attribute>
+            </field>
+
+            <field name="date_order" position="after">
+                <field name="reservation_date"/>
+                <field name="reservation_expiry_date"/>
+                <field name="reservation_deposit_amount"/>
+            </field>
+
+            <xpath expr="//field[@name='order_line']/form/group/group/field[@name='product_id']" position="attributes">
+                <attribute name="domain">[('sale_ok', '=', True), ('is_real_estate_unit', '=', True),
+                                          ('state', 'not in',['reserved', 'sold']), '|', ('company_id', '=', False),
+                                          ('company_id', '=', parent.company_id)]
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+                <attribute name="domain">[('sale_ok', '=', True), ('is_real_estate_unit', '=', True),
+                                          ('state', 'not in',['reserved', 'sold']), '|', ('company_id', '=', False),
+                                          ('company_id', '=', parent.company_id)]
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

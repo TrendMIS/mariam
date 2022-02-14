@@ -1,0 +1,32 @@
+<odoo>
+    <data>
+        <!--res.partner rules-->
+        <record id="broker_sales_user_rule" model="ir.rule">
+            <field name="name">Broker sales user rule</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force">
+                ['|', ('is_broker', '=', False), ('user_id', '=', user.id)]
+            </field>
+            <field name="groups"
+                   eval="[(4, ref('trend_realestate_access_rights.res_group_real_estate_property_consultant'))]"/>
+        </record>
+
+        <record id="broker_sales_leader_rule" model="ir.rule">
+            <field name="name">Broker sales user rule</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force">
+                ['|', ('is_broker', '=', False), ('user_id.sale_team_id.user_id', '=', user.id)]
+            </field>
+            <field name="groups"
+                   eval="[(4, ref('trend_realestate_access_rights.res_group_real_estate_sales_team_leader'))]"/>
+        </record>
+
+        <record id="broker_sales_admin_rule" model="ir.rule">
+            <field name="name">Broker sales admin rule</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups"
+                   eval="[(4, ref('trend_realestate_access_rights.res_group_real_estate_sales_admin'))]"/>
+        </record>
+    </data>
+</odoo>

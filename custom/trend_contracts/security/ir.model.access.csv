@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_contract_type,access_contract_type,model_contract_report_type,,1,0,0,0
+access_contract_type_admin,access_contract_type_admin,model_contract_report_type,trend_realestate_access_rights.res_group_real_estate_sales_admin,1,1,1,1

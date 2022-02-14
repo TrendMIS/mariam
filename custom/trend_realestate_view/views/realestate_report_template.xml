@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+       <template id="realstate_report">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+                <section class="s_references pt48 pb32 o_colored_level" data-snippet="s_references"
+                         data-name="References" style="">
+                    <div class="container-fluid">
+                        <br/>
+                        <br/>
+                        <p/>
+                        <div class="row">
+                            <t t-set="counter" t-value="0"/>
+                            <t t-set="blank_counter" t-value="0"/>
+                            <t t-foreach="products"
+                               t-as="product">
+                                <t t-if="counter == 4">
+                                    <div class="col-lg-4 pt16 pb16 o_colored_level"
+                                         style="text-align: center;">
+                                    </div>
+                                    <t t-set="counter" t-value="0"/>
+                                    <t t-set="blank_counter" t-value="counter + 1"/>
+                                </t>
+                                <div class="product_details col-lg-1 pt16 pb16 o_colored_level"
+                                     style="text-align: center;"
+                                     t-attf-onclick="productDetails('product_details_#{product.id}')">
+                                    <t t-if="product.state == 'available'">
+                                        <img src="/trend_realestate_view/static/description/real_estate_green.png"
+                                             class="mr-2" height="60px" alt="Green icon"/>
+                                    </t>
+                                    <t t-else="">
+                                        <img src="/trend_realestate_view/static/description/real_estate_red.png"
+                                             class="mr-2" height="60px" alt="Red icon"/>
+                                    </t>
+
+                                    <span class="product_details_text" t-att-id="'product_details_%d' % product.id">
+                                        <span t-esc="product.name"/>
+                                        <br/>
+                                        <span t-esc="product.description"/>
+                                        <br/>
+                                        Floor:
+                                        <span t-esc="product.floor"/>
+                                        <br/>
+                                        Area:
+                                        <span t-esc="product.unit_area"/>
+                                        <br/>
+                                        Price:
+                                        <span t-esc="product.full_unit_price"/>
+                                    </span>
+                                </div>
+                                <t t-set="counter" t-value="counter + 1"/>
+                            </t>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </t>
+    </template>
+    </data>
+</odoo>

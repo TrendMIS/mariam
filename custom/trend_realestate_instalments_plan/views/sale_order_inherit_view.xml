@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_order_form_inherit_view" model="ir.ui.view">
+            <field name="name">view.order.form.inherit.view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <field name="project_id"/>
+                </field>
+                <xpath expr="//page[2]" position="after">
+                    <page name="payment_plan" string="Payment Plan">
+                        <button name="action_create_installments" type="object" string="Create Installments"
+                                class="oe_highlight"/>
+                        <button name="call_wizard" type="object" string="Create Payments"
+                                class="oe_highlight"/>
+                        <span style="visibility: hidden;"/>
+                        <button name="action_create_main" type="object" string="Create Maintenance"
+                                class="oe_highlight"/>
+                        <group>
+                            <group>
+                                <field name="full_unit_price"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="delivery_amount_date" string="Delivery Amount Date"/>
+                                <field name="delivery_amount"/>
+                                <label for="delivery_amount_per"/>
+                                <div>
+                                    <field name="delivery_amount_per" class="oe_inline"/>
+                                    %
+                                </div>
+                                <field name="standard_payment_plan_id"/>
+                            </group>
+                            <group>
+                                <field name="is_additional"/>
+                                <field name="additional_installments"
+                                       attrs="{'invisible':[('is_additional', '=', False)]}"/>
+                                <field name="additional_installment_date"
+                                       attrs="{'invisible':['|',('is_additional', '=', False),('additional_installments', '!=', 'regular')]}"/>
+                                <field name="additional_installment_number"
+                                       attrs="{'invisible':['|',('is_additional', '=', False),('additional_installments', '!=', 'regular')]}"/>
+                                <field name="additional_payment_type"
+                                       attrs="{'invisible':['|',('is_additional', '=', False),('additional_installments', '!=', 'regular')]}"/>
+                                <field name="additional_installment_amount"
+                                       attrs="{'invisible':['|',('is_additional', '=', False),('additional_installments', '=', False)]}"/>
+                                <field name="additional_installment_ids"
+                                       attrs="{'invisible':['|',('is_additional', '=', False),('additional_installments', '!=', 'irregular')]}"
+                                       nolabel="1">
+                                    <tree editable="top">
+                                        <field name="name"/>
+                                        <field name="installment_date"/>
+                                        <field name="installment_amount" sum="Total Of Installment Amount"/>
+                                    </tree>
+                                    <form>
+                                        <group col="4">
+                                            <field name="name"/>
+                                            <field name="installment_date"/>
+                                            <field name="installment_amount"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </group>
+                            <group>
+                                <field name="contract_signing_amount_date" string="Contract Signing Amount Date"/>
+                                <field name="contract_signing_amount_after_discount"/>
+                                <field name="contract_signing_amount"/>
+                                <label for="contract_amount_per"/>
+                                <div>
+                                    <field name="contract_amount_per" class="oe_inline"/>
+                                    %
+                                </div>
+                            </group>
+                            <group>
+                                <field name="deposit_amount_date" string="Deposit Amount Date"/>
+                                <field name="deposit_amount"/>
+                                <field name="residual_amount"/>
+                            </group>
+                        </group>
+
+                        <group>
+                            <group>
+
+                                <field name="no_of_installments"/>
+                                <field name="first_installment_date"/>
+                                <field name="payment_type"/>
+                                <field name="installment_corrected_value"/>
+                            </group>
+                            <group>
+                                <field name="maintenance_per"/>
+                                <field name="maintenance_after_discount"/>
+                                <field name="maintenance_amount"/>
+                                <field name="maintenance_no"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="installment_ids" nolabel="1" editable="top">
+                                <tree style="width: 100%">
+                                    <field name="name"/>
+                                    <field name="installment_date"/>
+                                    <field name="installment_type"/>
+                                    <field name="installment_amount" sum="Total Of Installment Amount"/>
+                                    <field name="discount"/>
+                                    <field name="cumulative_amount"/>
+                                    <field name="cumulative_percentage"/>
+                                    <field name="actual_paid"/>
+                                    <field name="cumulative_payments"/>
+                                    <field name="overdue_amounts"/>
+                                    <field name="status"/>
+                                    <field name="related_payment_ids" widget="many2many_taglinks"/>
+                                </tree>
+                                <form>
+                                    <group col="4">
+                                        <field name="name"/>
+                                        <field name="installment_date"/>
+                                        <field name="installment_type"/>
+                                        <field name="status"/>
+                                        <field name="installment_amount"/>
+                                        <field name="discount"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                        <group>
+                            <field name="maintenance_ids" nolabel="1" editable="top">
+                                <tree>
+                                    <field name="name" readonly="1"/>
+                                    <field name="maintenance_date" readonly="0"/>
+                                    <field name="maintenance_amount" readonly="1"/>
+                                    <field name="status" readonly="1"/>
+                                    <field name="related_payment_ids" widget="many2many_taglinks"/>
+                                    <button string="payment" name="create_maintenance_payments" type="object"/>
+                                </tree>
+                                <form>
+                                    <group col="4">
+                                        <field name="name"/>
+                                        <field name="maintenance_date"/>
+                                        <field name="maintenance_amount" readonly="1"/>
+                                        <field name="status" readonly="1"/>
+                                    </group>
+                                </form>
+                            </field>
+                        </group>
+                    </page>
+
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="sale_installments_tree_view" model="ir.ui.view">
+            <field name="name">Installments Tree</field>
+            <field name="model">sale.installment</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="installment_date"/>
+                    <field name="installment_type"/>
+                    <field name="status"/>
+                    <field name="installment_amount"/>
+                    <field name="actual_paid"/>
+                    <field name="cumulative_payments"/>
+                    <field name="overdue_amounts"/>
+                    <field name="partner_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sale_installments_action" model="ir.actions.act_window">
+            <field name="name">Installments</field>
+            <field name="res_model">sale.installment</field>
+        </record>
+
+        <menuitem id="installments_menuitem" name="Installments" action="sale_installments_action"
+                  parent="sale.menu_sale_report"/>
+    </data>
+</odoo>

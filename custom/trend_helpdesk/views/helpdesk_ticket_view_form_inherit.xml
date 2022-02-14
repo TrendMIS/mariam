@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="helpdesk_ticket_view_form_inherit" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.view.form.inherit</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='email_cc']" position="after">
+                    <field name="sale_id"/>
+                    <field name="project" attrs="{'invisible': [('sale_id','=', False)]}"/>
+                    <field name="read_ticket"/>
+                    <field name="ticket_note" invisible="True"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

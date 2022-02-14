@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--product-->
+        <record model="ir.actions.act_window" id="product.product_normal_action">
+            <field name="name">Unit Variants</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product.product_variant_action">
+            <field name="name">Unit Variants</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product.product_normal_action_sell">
+            <field name="name">Unit Variants</field>
+            <field name="domain">[('is_real_estate_unit', '=', True)]</field>
+            <field name="context">{'default_is_real_estate_unit': True}</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product.product_template_action_all">
+            <field name="name">Units</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="product.product_template_action">
+            <field name="name">Units</field>
+            <field name="domain">[('is_real_estate_unit', '=', True)]</field>
+            <field name="context">{'default_is_real_estate_unit': True}</field>
+        </record>
+
+
+        <!--sale-->
+        <record model="ir.ui.menu" id="sale.menu_product_template_action">
+            <field name="name">Units</field>
+        </record>
+
+        <record model="ir.ui.menu" id="sale.prod_config_main">
+            <field name="name">Units</field>
+        </record>
+
+        <record model="ir.ui.menu" id="sale.menu_product">
+            <field name="name">Unit Variants</field>
+        </record>
+
+        <record model="ir.ui.menu" id="sale.menu_products">
+            <field name="name">Unit Variants</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="sale.product_template_action">
+            <field name="name">Units</field>
+        </record>
+
+        <!--accounting-->
+        <record model="ir.ui.menu" id="account.product_product_menu_purchasable">
+            <field name="name">Purchasable Units</field>
+        </record>
+
+        <record model="ir.ui.menu" id="account.product_product_menu_sellable">
+            <field name="name">Sellable Units</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="account.product_product_action_purchasable">
+            <field name="name">Purchasable Units</field>
+        </record>
+
+        <record model="ir.actions.act_window" id="account.product_product_action_sellable">
+            <field name="name">Sellable Units</field>
+        </record>
+
+        <!--CRM-->
+        <record id="unit_crm_lead_action" model="ir.actions.act_window">
+            <field name="name">Units</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.template</field>
+            <field name="view_mode">kanban,tree,form,activity</field>
+            <field name="domain">[('state', 'in', ['available'])]</field>
+        </record>
+
+        <menuitem
+                id="menu_unit_crm_lead"
+                name="Units"
+                parent="crm.crm_menu_root"
+                action="unit_crm_lead_action"
+                sequence="24"
+                groups="trend_realestate_access_rights.res_group_real_estate_property_consultant"
+        />
+    </data>
+</odoo>

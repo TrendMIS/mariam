@@ -1,0 +1,15 @@
+<odoo>
+    <data>
+
+        <record id="broker_action" model="ir.actions.act_window">
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('is_broker', '=', True)]</field>
+        </record>
+
+        <menuitem id="brokers_menu" name="Brokers"
+                  parent="crm.crm_menu_root" action="broker_action"/>
+
+    </data>
+</odoo>

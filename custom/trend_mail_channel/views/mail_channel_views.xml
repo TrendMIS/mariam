@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="mail_channel_inherit_view_form" model="ir.ui.view">
+            <field name="name">mail.channel.form</field>
+            <field name="model">mail.channel</field>
+            <field name="inherit_id" ref="mail.mail_channel_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//page[@name='members']/field[@name='channel_last_seen_partner_ids']/tree/field[@name='partner_id']"
+                       position="attributes">
+                    <attribute name="domain">[('is_related_user', '=', True)]</attribute>
+                </xpath>
+
+            </field>
+        </record>
+    </data>
+</odoo>

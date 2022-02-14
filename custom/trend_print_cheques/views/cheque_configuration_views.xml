@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="cheque_configuration_form_view" model="ir.ui.view">
+            <field name="name">cheque.configuration.form.view</field>
+            <field name="model">cheque.configuration</field>
+            <field name="arch" type="xml">
+                <form string="Cheque Configuration">
+                    <sheet>
+                        <field name="cheque_img" nolabel="1"
+                               class="oe_avatar" img_width="120"
+                               img_height="120" width="120" height="120"
+                               widget="image"/>
+                        <div class="oe_title">
+                            <div class="oe_edit_only">
+                                <label for="name"/>
+                            </div>
+                            <h1>
+                                <field name="name" placeholder="Bank Name .." nolabel="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group string="Font Size">
+                                <field name="font_size"/>
+                            </group>
+                            <group string="Date">
+                                <field name="date_margin_top"/>
+                                <field name="date_margin_left"/>
+                            </group>
+                            <group string="Source Place">
+                                <field name="source_margin_top"/>
+                                <field name="source_margin_left"/>
+                            </group>
+                            <group string="Recipient Name">
+                                <field name="recipient_margin_top"/>
+                                <field name="recipient_margin_left"/>
+                            </group>
+                            <group string="Amount in Digit">
+                                <field name="amount_margin_top"/>
+                                <field name="amount_margin_left"/>
+                            </group>
+                            <group string="Amount in Word">
+                                <field name="text_amount_margin_top"/>
+                                <field name="text_amount_margin_left"/>
+                            </group>
+                            <group string="Signatory Name">
+                                <field name="signatory_margin_top"/>
+                                <field name="signatory_margin_left"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="cheque_configuration_tree_view" model="ir.ui.view">
+            <field name="name">cheque.configuration.tree.view</field>
+            <field name="model">cheque.configuration</field>
+            <field name="arch" type="xml">
+                <tree string="Cheque Configuration">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="cheque_configuration_action_view" model="ir.actions.act_window">
+            <field name="name">Cheque Configuration</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">cheque.configuration</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="cheque_configuration_main_menu" name="Cheque" parent="account.menu_finance_configuration"
+                  sequence="70"/>
+        <menuitem
+                id="cheque_configuration_menu"
+                name="Cheque Configuration"
+                parent="cheque_configuration_main_menu"
+                action="cheque_configuration_action_view"
+        />
+
+    </data>
+</odoo>

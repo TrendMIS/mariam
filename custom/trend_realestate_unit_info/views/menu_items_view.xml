@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="realestate_unit_block_menu"
+                  name="Project Blocks"
+                  parent="trend_realestate_project.real_estate_main_menu"
+                  action="unit_block_action"/>
+
+        <menuitem id="realestate_unit_view_menu"
+                  name="Project Views"
+                  parent="trend_realestate_project.real_estate_main_menu"
+                  action="unit_view_action"/>
+
+        <menuitem id="realestate_unit_finish_menu"
+                  name="Finish statuses"
+                  parent="trend_realestate_project.real_estate_main_menu"
+                  action="unit_finish_action"/>
+
+    </data>
+</odoo>

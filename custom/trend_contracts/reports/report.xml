@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <report
+                id="action_contract_report"
+                string="Contract"
+                model="sale.order"
+                report_type="qweb-html"
+                file="trend_contracts.contract_template"
+                name="trend_contracts.contract_template"
+                menu="False"
+        />
+
+    </data>
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="utm_campaign_view_form_inherit" model="ir.ui.view">
+            <field name="name">utm.campaign.view.form.inherit</field>
+            <field name="model">utm.campaign</field>
+            <field name="inherit_id" ref="utm.utm_campaign_view_form"/>
+            <field name="arch" type="xml">
+                <form position="replace">
+                    <form>
+                        <sheet>
+                            <div class="oe_button_box" name="button_box">
+                                <button class="oe_stat_button" name="open_campaign_leads" type="object" icon="fa-list">
+                                    <field string="Leads Generated" name="leads_count" widget="statinfo"/>
+                                </button>
+                            </div>
+                            <group>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="date_from"/>
+                                </group>
+                                <group>
+                                    <field name="campaign_budget"/>
+                                    <field name="date_to"/>
+                                </group>
+                            </group>
+                        </sheet>
+                    </form>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

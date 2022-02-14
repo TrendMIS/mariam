@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_order_form_inherit_view" model="ir.ui.view">
+            <field name="name">view.order.form.inherit.view</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="priority" eval="100"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_create_installments']" position="after">
+                    <field name="has_club" invisible="True"/>
+                    <button name="action_create_club_installments" type="object" string="Create Club Installments"
+                            attrs="{'invisible': [('has_club', '=', False)]}"/>
+                    <span style="visibility: hidden;"/>
+                    <field name="has_garage" invisible="True"/>
+                    <button name="action_create_garage_installments" type="object" string="Create Garage Installments"
+                            attrs="{'invisible': [('has_garage', '=', False)]}"/>
+                </xpath>
+
+                <field name="no_of_installments" position="after">
+                    <field name="garage_installments_count" attrs="{'invisible': [('has_garage', '=', False)]}"/>
+                    <field name="club_installments_count" attrs="{'invisible': [('has_club', '=', False)]}"/>
+                </field>
+
+                <field name="maintenance_ids" position="after">
+                    <group>
+                        <field name="club_installment_ids" editable="top"
+                               attrs="{'invisible': [('has_club', '=', False)]}">
+                            <tree style="width: 100%">
+                                <field name="name"/>
+                                <field name="installment_date"/>
+                                <field name="installment_amount" sum="Total Of Installment Amount"/>
+                            </tree>
+                        </field>
+                    </group>
+                    <group>
+                        <field name="garage_installment_ids" editable="top"
+                               attrs="{'invisible': [('has_garage', '=', False)]}">
+                            <tree style="width: 100%">
+                                <field name="name"/>
+                                <field name="installment_date"/>
+                                <field name="installment_amount" sum="Total Of Installment Amount"/>
+                            </tree>
+                        </field>
+                    </group>
+                </field>
+
+                <xpath expr="//field[@name='order_line']/form/group/group/field[@name='product_id']"
+                       position="attributes">
+                    <attribute name="domain">[('sale_ok', '=', True), ('state', 'not in', ['reserved', 'sold']), '|',
+                                              '|', ('is_real_estate_unit', '=', True), ('is_garage', '=', True),
+                                              ('is_club', '=', True),
+                                              '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]
+                    </attribute>
+                </xpath>
+                <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+                    <attribute name="domain">[('sale_ok', '=', True), ('state', 'not in', ['reserved', 'sold']),
+                                              '|', '|', ('is_real_estate_unit', '=', True), ('is_garage', '=', True),
+                                              ('is_club', '=', True),
+                                              '|', ('company_id', '=', False), ('company_id', '=', parent.company_id)]
+                    </attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

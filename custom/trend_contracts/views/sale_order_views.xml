@@ -1,0 +1,35 @@
+<odoo>
+    <data>
+        <record id="view_order_form_contracts" model="ir.ui.view">
+            <field name="name">view.order.form.team.contracts</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <page name="customer_signature" position="after">
+                    <page name="contract" string="Contract" attrs="{'invisible': [('project_id', '=', False)]}">
+                        <group>
+                            <group>
+                                <field name="contract_partner_name"/>
+                                <field name="contract_partner_national_id"/>
+                                <field name="contract_partner_national_id_origin"/>
+                            </group>
+                            <group>
+                                <field name="contract_partner_address"/>
+                                <field name="contract_partner_mobile"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="project_id"/>
+                            <field name="report_type" domain="[('project_id', '=', project_id)]"/>
+                            <button name="onchange_report_type" string="Reload Contract" type="object"
+                                    class="btn btn-primary" attrs="{'invisible': [('report_type', '=', False)]}"/>
+                            <button name="print_contract" string="Print Contract" type="object"
+                                    class="btn btn-success" attrs="{'invisible': [('report_type', '=', False)]}"/>
+                        </group>
+                        <field name="report_html"/>
+                    </page>
+                </page>
+            </field>
+        </record>
+    </data>
+</odoo>

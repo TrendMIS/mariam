@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="developer_contacts_action" model="ir.actions.act_window">
+            <field name="name">Developer</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">kanban,tree,form,activity</field>
+            <field name="context">{'default_developer':True}</field>
+            <field name="domain">[('developer', '=',True)]</field>
+        </record>
+
+        <menuitem id="real_estate_main_menu"
+                  name="Real Estate" sequence="100" parent="crm.crm_menu_config"/>
+
+        <menuitem id="real_estate_project_menu"
+                  name="Real Estate Projects" sequence="1"
+                  action="real_estate_project_action"
+                  parent="real_estate_main_menu"/>
+
+        <menuitem id="developer_contacts_menu" name="Real Estate Developers"
+                  parent="real_estate_main_menu"
+                  action="developer_contacts_action"
+                  sequence="2"/>
+
+        <menuitem id="real_estate_project_type_menu"
+                  name="Real Estate Project Types" sequence="3"
+                  action="real_estate_project_type_action"
+                  parent="real_estate_main_menu"/>
+
+
+        <menuitem id="project_facility_menu"
+                  name="Real Estate Facilities" sequence="4"
+                  action="project_facility_action"
+                  parent="real_estate_main_menu"/>
+
+
+    </data>
+</odoo>

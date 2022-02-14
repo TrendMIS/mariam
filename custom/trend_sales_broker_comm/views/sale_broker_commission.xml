@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sale_broker_commission_form_view" model="ir.ui.view">
+            <field name="name">sale.broker.commission.form</field>
+            <field name="model">sale.broker.commission</field>
+            <field name="arch" type="xml">
+                <form string="Sales Broker Commission">
+                    <header>
+                        <button name="action_compute_commission" type="object" string="Compute Commission"
+                                class="oe_highlight"/>
+                        <button name="action_view_invoice" string="Create Bill" type="object" class="oe_highlight"
+                                context="{'create_bill':True}"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="broker_id"/>
+                                <field name="program_id"/>
+                                <field name="from_date"/>
+                                <field name="to_date"/>
+                                <field name="commission" readonly="True"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page name="sales_info" string="Sales">
+                                <field name="sale_info_ids" readonly="True">
+                                    <tree>
+                                        <field name="sale_id"/>
+                                        <field name="unit_id"/>
+                                        <field name="date_order"/>
+                                        <field name="full_unit_price"/>
+                                        <field name="customer_id"/>
+                                        <field name="broker_id"/>
+                                        <field name="broker_salesman_id"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sale_broker_commission_tree_view" model="ir.ui.view">
+            <field name="name">Broker Commission</field>
+            <field name="model">sale.broker.commission</field>
+            <field name="arch" type="xml">
+                <tree string="Sales Broker Commission">
+                    <field name="broker_id" optional="show"/>
+                    <field name="from_date" optional="show"/>
+                    <field name="to_date" optional="show"/>
+                    <field name="commission" optional="show"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_sale_broker_commission" model="ir.actions.act_window">
+            <field name="name">Broker Commission</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.broker.commission</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="sale_broker_commission"
+                  name="Broker Commission"
+                  parent="account.menu_finance_payables"
+                  action="action_sale_broker_commission"
+                  sequence="100"/>
+
+    </data>
+</odoo>

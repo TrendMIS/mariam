@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="chane_stage_wizard_form_view" model="ir.ui.view">
+            <field name="name">change.stage.wizard.form.view</field>
+            <field name="model">change.stage.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <group>
+                        <field name="crm_stage_id"
+                               options="{'no_create_edit': True, 'no_create': True,'no_open': True, }"/>
+                        <field name="status_ids" widget="many2many_tags" invisible="1"/>
+                        <field name="status_type_id"  domain="[('id', 'in', status_ids)]"
+                               options="{'no_create_edit': True, 'no_create': True,'no_open': True, }"/>
+                    </group>
+                    <footer>
+                        <button class="oe_highlight" string="Confirm" name="confirm"
+                                type="object"/>
+                        or
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="chane_stage_wizard_action" model="ir.actions.act_window">
+            <field name="name">Change Stage</field>
+            <field name="view_mode">form</field>
+            <field name="res_model">change.stage.wizard</field>
+            <field name="target">new</field>
+        </record>
+
+    </data>
+</odoo>

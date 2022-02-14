@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="mail.activity_items" t-extend="mail.activity_items">
+        <t t-jquery="dl" t-operation="append">
+            <t t-if="activity.attendees_ids">
+            <dt>Attendees</dt>
+            <dd class="mb8">
+                <t t-foreach="activity.attendees_ids" t-as="attendee">
+                    <img t-attf-src="/web/image#{'/res.users/' + attendee.id + '/image_128'}"
+                         height="18" width="18" class="o_object_fit_cover rounded-circle mr4"/>
+                    <b><t t-esc="attendee.name"/></b><br/>
+                </t>
+            </dd>
+            </t>
+        </t>
+    </t>
+</templates>

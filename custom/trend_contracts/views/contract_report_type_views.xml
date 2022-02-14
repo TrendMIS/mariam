@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+        <record id="contract_type_action" model="ir.actions.act_window">
+            <field name="name">Contract Types</field>
+            <field name="res_model">contract.report.type</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="contract_types" name="Contract Types" action="contract_type_action"
+                  parent="trend_realestate_project.real_estate_main_menu" />
+    </data>
+</odoo>

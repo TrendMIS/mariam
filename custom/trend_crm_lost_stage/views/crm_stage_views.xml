@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="crm_lead_stage_lost_search" model="ir.ui.view">
+            <field name="name">Stage Lost - Search</field>
+            <field name="model">crm.stage</field>
+            <field name="inherit_id" ref="crm.crm_lead_stage_search"/>
+            <field name="arch" type="xml">
+                <field name="is_won" position="after">
+                    <field name="is_lost"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="crm_stage_lost_tree" model="ir.ui.view">
+            <field name="name">crm.stage.tree</field>
+            <field name="model">crm.stage</field>
+            <field name="inherit_id" ref="crm.crm_stage_tree"/>
+            <field name="arch" type="xml">
+                <field name="is_won" position="after">
+                    <field name="is_lost"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="crm_stage_lost_form" model="ir.ui.view">
+            <field name="name">crm.stage.from</field>
+            <field name="model">crm.stage</field>
+            <field name="inherit_id" ref="crm.crm_stage_form"/>
+            <field name="arch" type="xml">
+                <field name="is_won" position="after">
+                    <field name="is_lost"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

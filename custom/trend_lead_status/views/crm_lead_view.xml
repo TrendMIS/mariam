@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="crm_lead_type_form_view" model="ir.ui.view">
+            <field name="name">Crm lead type</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='tag_ids']" position="after">
+                    <field name="status_ids" invisible="1"/>
+                </xpath>
+                <xpath expr="//field[@name='status']" position="attributes">
+                    <attribute name="domain">[('id', 'in', status_ids)]</attribute>
+                </xpath>
+                <xpath expr="//button[@name='action_set_lost']" position="after">
+                    <button name="%(trend_lead_status.chane_stage_wizard_action)d" type="action"
+                            string="Change Stage"/>
+                </xpath>
+                <xpath expr="//field[@name='stage_id']" position="attributes">
+                    <attribute name="options">{}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="crm_lead_records_draggable" model="ir.ui.view">
+            <field name="name">crm.lead.records.draggable</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="arch" type="xml">
+                <xpath expr="//kanban" position="attributes">
+                    <attribute name="records_draggable">false</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="crm_lead_change_stage_button_kanban_view" model="ir.ui.view">
+            <field name="name">crm.lead.change.stage.button.kanban.view</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[hasclass('oe_kanban_footer')]" position="after">
+                    <t t-name="kanban-box">
+                        <div>
+                            <button name="%(trend_lead_status.chane_stage_wizard_action)d" class="oe_highlight"
+                                    type="action">Change Stage</button>
+                        </div>
+                    </t>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

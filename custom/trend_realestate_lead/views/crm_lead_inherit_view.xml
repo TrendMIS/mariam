@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="action_assign_salesperson" model="ir.actions.server">
+            <field name="name">Assign SalesPerson</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="binding_model_id" ref="crm.model_crm_lead"/>
+            <field name="state">code</field>
+            <field name="code">action = records.action_assign_user()</field>
+        </record>
+
+
+        <record id="crm_case_kanban_view_leads_inherit" model="ir.ui.view">
+            <field name="name">crm.case.kanban.view.leads.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+            <field name="arch" type="xml">
+                <field name="name" position="attributes">
+                    <attribute name="invisible">True</attribute>
+                </field>
+                <field name="name" position="after">
+                    <field name="partner_id"/>
+                </field>
+                <xpath expr="//div[hasclass('oe_kanban_footer')]" position="before">
+                    <div>
+                        <div>
+                            <field name="mobile"/>
+                        </div>
+                    </div>
+                </xpath>
+                <xpath expr="//div[hasclass('oe_kanban_content')]/div[3]" position="replace">
+                    <div>
+                        <span t-if="record.name.value" t-esc="record.name.value"></span>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="crm_case_tree_view_oppor_inherit" model="ir.ui.view">
+            <field name="name">crm.case.tree.view.oppor.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_case_tree_view_oppor"/>
+            <field name="arch" type="xml">
+                <tree position="replace">
+                    <tree string="Opportunities" decoration-bf="message_needaction==True"
+                          decoration-success="probability == 100"
+                          decoration-danger="activity_date_deadline and (activity_date_deadline &lt; current_date)">
+                        <field name="partner_id" string="Lead"/>
+                        <field name="mobile"/>
+                        <field name="name" string="Project Name"/>
+                        <field name="stage_id"/>
+                        <field name="source_id"/>
+                        <field name="user_id"/>
+                        <field name="create_date"/>
+                        <field name="write_date"/>
+                        <field name="activity_date_deadline"/>
+                        <field name="team_id"/>
+                        <field name="last_log_comment"/>
+                        <field name="partner_duplicate"/>
+                        <field name="country_id" invisible="1"/>
+                        <field name="activity_summary" invisible="1"/>
+                        <field name="medium_id" invisible="1"/>
+                        <field name="campaign_id" invisible="1"/>
+                        <field name="probability" avg="Avg. of Probability" invisible="1"/>
+                        <field name="date_deadline" invisible="1"/>
+                        <field name="referred" invisible="1"/>
+                        <field name="priority" invisible="1"/>
+                        <field name="message_needaction" invisible="1"/>
+                        <field name="probability" invisible="1"/>
+                    </tree>
+                </tree>
+            </field>
+        </record>
+
+        <record id="crm_lead_view_form_inherit" model="ir.ui.view">
+            <field name="name">crm.lead.view.form.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+                <button name="action_schedule_meeting" position="before">
+                    <field name="partner_duplicate" invisible="1"/>
+
+                    <button type="object" name="open_partner_leads"
+                            class="oe_stat_button" icon="fa-list">
+                        <field name="partner_leads_count" widget="statinfo" string="Customer Leads"/>
+                    </button>
+
+                    <button type="object" name="action_open_lead_invoices"
+                            class="oe_stat_button" icon="fa-list"
+                            attrs="{'invisible': [('lead_invoices_count', '=', 0)]}">
+                        <field name="lead_invoices_count" widget="statinfo" string="Invoices"/>
+                    </button>
+
+                </button>
+
+                <button name="action_set_won_rainbowman" position="before">
+                    <field name="stage_type" invisible="1"/>
+                    <button name="action_create_lead_invoice" string="Create Invoice" class="oe_highlight"
+                            attrs="{'invisible':[('stage_type','!=','won')]}" type="object"/>
+                </button>
+                <xpath expr="//group[@name='opportunity_partner']" position="inside">
+                    <xpath expr="//field[@name='mobile']" widget="phone" position="move"/>
+                </xpath>
+                <field name="email_from" position="attributes">
+                    <attribute name="attrs">{'readonly': 1}</attribute>
+                </field>
+                <label for="name" position="attributes">
+                    <attribute name="string">Lead</attribute>
+                </label>
+                <field name="team_id" position="after">
+                    <field name="broker_id" context="{'default_is_broker':True}"/>
+                </field>
+                <field name="team_id" position="attributes">
+                    <attribute name="string">Sales Team</attribute>
+                </field>
+
+                <field name="user_id" position="after">
+                    <field name="shared_with_user_id"/>
+                    <field name="team_leader_user_id" attrs="{'invisible':[('stage_type','!=','won')],'readonly':1}"/>
+                </field>
+                <field name="tag_ids" position="after">
+                    <field name="unit_number" attrs="{'invisible':[('stage_type','!=','won')]}"/>
+                    <field name="contract_name" attrs="{'invisible':[('stage_type','!=','won')]}"/>
+                    <field name="last_stage_id" readonly="1"/>
+                    <field name="admin_tags_ids" widget="many2many_tags"/>
+                </field>
+
+                <group position="inside">
+                    <group string="Budget" name="budget">
+                        <field name="budget_from"/>
+                        <field name="budget_to"/>
+                    </group>
+
+                    <group string="Area" name="area">
+                        <field name="area_from"/>
+                        <field name="area_to"/>
+                    </group>
+                </group>
+                <xpath expr="//page[@name='lead']/group/group[3]" position="inside">
+                    <field name="call_center"/>
+                    <field name="branch"/>
+                </xpath>
+                <field name="source_id" position="attributes">
+                    <attribute name="required">True</attribute>
+                </field>
+                <field name="day_close" position="after">
+                    <field name="recommended_by_id"/>
+                </field>
+
+                <xpath expr="//page[@name='lead']" position="after">
+
+                    <page name="lead_history" string="Lead History">
+                        <group>
+                            <field name="creation_date"/>
+                        </group>
+                        <field name="lead_history_ids">
+                            <tree editable="bottom">
+                                <field name="date"/>
+                                <field name="author"/>
+                                <field name="comment"/>
+                            </tree>
+                        </field>
+                    </page>
+                    <page name="interested_units" string="Interested Units">
+                        <field name="product_ids">
+                            <tree>
+                                <field name="name" string="Unit"/>
+                                <field name="state"/>
+                                <field name="list_price" string="Unit Price"/>
+                            </tree>
+                        </field>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='priority']" position="after">
+                    <field name="status" readonly="1"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="crm.crm_lead_action_pipeline">
+            <field name="context">{
+                'default_type': 'opportunity',
+                'default_user_id': uid,
+                'search_default_assigned_to_me': 0,
+            }
+            </field>
+            <field name="limit">20</field>
+        </record>
+
+
+        <record id="view_crm_case_opportunities_filter_mobile_inherit" model="ir.ui.view">
+            <field name="name">view.crm.case.opportunities.filter.mobile.inherit</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter"/>
+            <field name="arch" type="xml">
+                <filter name="stage" position="after">
+                    <filter string="Mobile" name="mobile" domain="[]" context="{'group_by':'mobile'}"/>
+                    <filter string="Last Stage" name="last_stage" domain="[]" context="{'group_by':'last_stage_id'}"/>
+                    <filter string="Call Center" name="call_center" domain="[]" context="{'group_by':'call_center'}"/>
+                </filter>
+                <filter name="lost" position="after">
+                    <separator/>
+                    <filter string="Thawra" name="thawra" domain="[('branch', '=', 'thawra')]"/>
+                    <filter string="New Cairo" name="new_cairo" domain="[('branch', '=', 'new_cairo')]"/>
+                </filter>
+                <filter name="source" position="after">
+                    <separator/>
+                    <filter string="Branch" name="branch" domain="[]" context="{'group_by':'branch'}"/>
+                </filter>
+                <field name="partner_id" position="after">
+                    <field name="mobile"/>
+                    <field name="last_stage_id"/>
+                    <field name="customer_code"/>
+                    <field name="call_center"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="quick_create_opportunity_inherit_form" model="ir.ui.view">
+            <field name="name">crm.lead.form.quick_create</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.quick_create_opportunity_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="attributes">
+                    <attribute name="options">{'no_quick_create': True}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="action_cancel_leads_activities" model="ir.actions.server">
+            <field name="name">Cancel Activities</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="binding_model_id" ref="crm.model_crm_lead"/>
+            <field name="state">code</field>
+            <field name="code">action = records.cancel_activities()</field>
+        </record>
+    </data>
+</odoo>

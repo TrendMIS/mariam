@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="product_template_form_view_unit_inherit" model="ir.ui.view">
+            <field name="name">product.template.form.view.unit.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <header position="inside">
+                    <field name="state" widget="statusbar" statusbar_visible="available,sold"
+                           attrs="{'invisible': [('is_real_estate_unit', '!=', True)]}"/>
+                </header>
+                <div name="options" position="inside">
+                    <div>
+                        <field name="is_real_estate_unit"/>
+                        <label for="is_real_estate_unit"/>
+                    </div>
+                </div>
+
+                <div name="options" position="before">
+                    <widget name="web_ribbon" title="Available" states="available"/>
+                    <widget name="web_ribbon" title="Sold" states="sold" bg_color="bg-danger"/>
+                    <widget name="web_ribbon" title="Reserved"
+                            states="reserved" bg_color="bg-info"/>
+                </div>
+                <group name="group_standard_price" position="after">
+                    <group>
+                        <field name="developer_id" attrs="{'invisible': [('is_real_estate_unit', '!=', True)]}"/>
+                    </group>
+                </group>
+                <field name="list_price" position="replace">
+                    <field name="list_price" attrs="{'invisible': [('is_real_estate_unit', '!=', True)]}"
+                           widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                </field>
+                <field name="company_id" position="after">
+                    <field name="floor" attrs="{'invisible': [('is_real_estate_unit', '!=', True)]}"/>
+                    <field name="unit_meter_price" attrs="{'invisible': [('is_real_estate_unit', '!=', True)]}"
+                           widget='monetary' options="{'currency_field': 'currency_id'}"/>
+                    <field name="unit_area" attrs="{'invisible': [('is_real_estate_unit', '!=', True)]}"/>
+                    <field name="unit_net_area" attrs="{'invisible': [('is_real_estate_unit', '!=', True)]}"/>
+                    <field name="full_unit_price" attrs="{'invisible': [('is_real_estate_unit', '!=', True)]}"/>
+                </field>
+
+                <label for="standard_price" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_real_estate_unit', '=', True)]}</attribute>
+                </label>
+
+                <field name="categ_id" position="attributes">
+                    <attribute name="domain">[('is_real_estate', '=', is_real_estate_unit)]</attribute>
+                </field>
+                <div name="standard_price_uom" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_real_estate_unit', '=', True)]}</attribute>
+                </div>
+
+                <field name="purchase_ok" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_real_estate_unit', '=', True)]}</attribute>
+                </field>
+                <label for="purchase_ok" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_real_estate_unit', '=', True)]}</attribute>
+                </label>
+
+                <page name="inventory" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_real_estate_unit', '=', True)]}</attribute>
+                </page>
+
+                <page name="purchase" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_real_estate_unit', '=', True)]}</attribute>
+                </page>
+            </field>
+        </record>
+
+        <record id="view_product_template_purchase_buttons_from_unit_inherit" model="ir.ui.view">
+            <field name="name">view.product.template.purchase.buttons.from.unit.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="purchase.view_product_template_purchase_buttons_from"/>
+            <field name="arch" type="xml">
+                <button name="action_view_po" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_real_estate_unit', '=', True)]}</attribute>
+                </button>
+            </field>
+        </record>
+
+
+        <record id="account_product_template_form_view_unit_inherit" model="ir.ui.view">
+            <field name="name">account.product.template.form.view.unit.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="account.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <page name="invoicing" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_real_estate_unit', '=', True)]}</attribute>
+                </page>
+            </field>
+        </record>
+
+        <record id="product_template_only_form_view_unit_inherit" model="ir.ui.view">
+            <field name="name">product.template.only.form.view.unit.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_only_form_view"/>
+            <field name="arch" type="xml">
+                <field name="barcode" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_real_estate_unit', '=', True)]}</attribute>
+                </field>
+                <field name="unit_net_area" position="after">
+                    <field name="terrace" attrs="{'invisible': [('is_real_estate_unit', '!=', True)]}"/>
+                    <field name="roof_area" attrs="{'invisible': [('is_real_estate_unit', '!=', True)]}"/>
+                </field>
+
+            </field>
+        </record>
+
+        <record id="product_normal_form_view_unit_inherit" model="ir.ui.view">
+            <field name="name">product.normal.form.view.unit.inherit</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+                <field name="barcode" position="attributes">
+                    <attribute name="attrs">{'invisible': [('is_real_estate_unit', '=', True)]}</attribute>
+                </field>
+            </field>
+        </record>
+
+
+        <record id="product_template_kanban_view_ribbon" model="ir.ui.view">
+            <field name="name">product_template_kanban_view_ribbon</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_kanban_view"/>
+            <field name="arch" type="xml">
+                <field name="id" position="after">
+                    <field name="state"/>
+                    <field name="full_unit_price"/>
+                </field>
+                <xpath expr="//div[@name='product_lst_price']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//div[@name='product_lst_price']" position="after">
+                    <div name="product_lst_price" class="mt-1">
+                        Price: <field name="full_unit_price" widget="monetary"
+                                      options="{'currency_field': 'currency_id', 'field_digits': True}"></field>
+                    </div>
+                </xpath>
+                <div class="o_kanban_image mr-1" position="after">
+                    <t t-if="record.state.value == 'Available'">
+                        <div class="kanban-ribbon">
+                            <p>Available</p>
+                        </div>
+                    </t>
+                    <t t-if="record.state.value == 'Sold'">
+                        <div class="kanban-ribbon kanban-ribbon-danger">
+                            <p>Sold</p>
+                        </div>
+                    </t>
+                    <t t-if="record.state.value == 'Reserved'">
+                        <div class="kanban-ribbon kanban-ribbon-info">
+                            <p>Reserved</p>
+                        </div>
+                    </t>
+                </div>
+
+            </field>
+        </record>
+
+        <record id="product_template_tree_view_colors" model="ir.ui.view">
+            <field name="name">product_template_tree_view_colors</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="standard_price" position="after">
+                    <field name="state"/>
+                    <field name="unit_area"/>
+                </field>
+                <field name="standard_price" position="before">
+                    <field name="full_unit_price"/>
+                </field>
+                <xpath expr="//field[@name='list_price']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <tree position="attributes">
+                    <attribute name="decoration-success">state=='available'</attribute>
+                    <attribute name="decoration-danger">state=='sold'</attribute>
+                    <attribute name="decoration-info">state=='reserved'</attribute>
+                </tree>
+            </field>
+        </record>
+    </data>
+</odoo>

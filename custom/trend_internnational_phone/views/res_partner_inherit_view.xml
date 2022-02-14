@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_res_partner_filter_international_phone_inherit" model="ir.ui.view">
+            <field name="name">view.res.partner.filter.international.phone.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <field name="user_id" position="after">
+                    <field name="international_phone" string="Phone numbers"
+                           filter_domain="['|', ('phone','ilike', self), '|', ('mobile','ilike', self),'|',('international_phone','ilike', self), ('extra_phone','ilike', self)]"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="view_partner_international_phone_inherit" model="ir.ui.view">
+            <field name="name">view_partner_international_phone_inherit</field>
+            <field name="model">res.partner</field>
+            <field name="priority" eval="10"/>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='email']" position="after">
+                    <field name="international_phone"/>
+                </xpath>
+                <xpath expr="//field[@name='email']" position="before">
+                    <field name="extra_phone"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

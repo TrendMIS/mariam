@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_realstate_report" model="ir.actions.act_url">
+            <field name="name">Real State Report</field>
+            <field name="url">/realstate_report</field>
+            <field name="target">self</field>
+        </record>
+
+        <menuitem id="menu_realstate_report" name="Real State Report"
+                  web_icon="trend_realestate_view,static/description/real_estate.png"
+                  action="action_realstate_report" sequence="20"/>
+    </data>
+</odoo>

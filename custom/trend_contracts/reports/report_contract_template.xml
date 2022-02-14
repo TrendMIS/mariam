@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <template id="contract_layout" inherit_id="web.internal_layout" primary="True">
+            <xpath expr="//div[hasclass('header')]" position="replace">
+                <div class="header">
+                    <div class="row">
+                        <div class="col-4">
+                            <img t-attf-src="data:image/*;base64,{{docs[0].project_id.image_1920}}"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="contract_template">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="trend_contracts.contract_layout">
+                        <div class="page">
+                            <t t-raw="o.report_html"/>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+    </data>
+</odoo>

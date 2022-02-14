@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+        <!--res.partner rules-->
+        <record id="activity_archive_sales_user" model="ir.rule">
+            <field name="name">Activity Archive sales user</field>
+            <field name="model_id" ref="model_mail_activity_archive"/>
+            <field name="domain_force">
+                ['|', ('user_id', '=', user.id), ('create_uid', '=', user.id)]
+            </field>
+            <field name="groups"
+                   eval="[(4, ref('trend_realestate_access_rights.res_group_real_estate_property_consultant'))]"/>
+        </record>
+
+        <record id="activity_archive_sales_team_leader" model="ir.rule">
+            <field name="name">Activity Archive sales user</field>
+            <field name="model_id" ref="model_mail_activity_archive"/>
+            <field name="domain_force">
+                ['|', '|', ('id', '=', user.id), ('create_uid', '=', user.id),
+                 ('user_id.sale_team_id.user_id', '=', user.id)]
+            </field>
+            <field name="groups"
+                   eval="[(4, ref('trend_realestate_access_rights.res_group_real_estate_sales_team_leader'))]"/>
+        </record>
+
+        <record id="activity_archive_sales_admin" model="ir.rule">
+            <field name="name">Activity Archive sales user</field>
+            <field name="model_id" ref="model_mail_activity_archive"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups"
+                   eval="[(4, ref('trend_realestate_access_rights.res_group_real_estate_sales_admin'))]"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="seq_project_code" model="ir.sequence">
+            <field name="name">Project Code</field>
+            <field name="code">project.code</field>
+            <field name="prefix">Project-</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="real_estate_project_form_view" model="ir.ui.view">
+            <field name="name">real.estate.project.form.view</field>
+            <field name="model">real.estate.project</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <field name="image_1920" widget="image" class="oe_avatar"
+                               options="{&quot;preview_image&quot;: &quot;image_128&quot;}"/>
+                        <div class="oe_title">
+                            <field name="active" invisible="1"/>
+                            <h1>
+                                <field name="name" default_focus="1" placeholder="Name"
+                                />
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <label for="street" string="Address"/>
+                                <div class="o_address_format">
+                                    <field name="street" placeholder="Street..." class="o_address_street"/>
+                                    <field name="street2" placeholder="Street 2..." class="o_address_street"/>
+                                    <field name="city" placeholder="City" class="o_address_city"/>
+                                    <field name="state_id" class="o_address_state" placeholder="State"
+                                           options="{&quot;no_open&quot;: True}"
+                                           context="{'country_id': country_id, 'zip': zip}"/>
+                                    <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                    <field name="country_id" placeholder="Country" class="o_address_country"
+                                           options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                </div>
+                                <field name="project_presentation" filename="filename"/>
+                                <label for="project_percentage"/>
+                                <div>
+                                    <field name="project_percentage"/>
+                                    %
+                                </div>
+                            </group>
+                            <group>
+                                <field name="code"/>
+                                <field name="developer_id" options="{'no_create': True}"/>
+                                <field name="project_type_id"/>
+                                <field name="project_facility_ids" widget="many2many_tags"/>
+                                <field name="start_meter_price"/>
+                                <field name="installments_period"/>
+                                <label for="deposit_percentage"/>
+                                <div>
+                                    <field name="deposit_percentage"/>
+                                    %
+                                </div>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Description" name="description">
+                                <field name="description"/>
+                            </page>
+                            <page string="Region" name="region">
+                                <field name="region"/>
+                            </page>
+                            <page string="Type Of Units" name="unit_types">
+                                <field name="project_unit_type_ids">
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="description"/>
+                                    </tree>
+                                    <form>
+                                        <group col="4">
+                                            <field name="name"/>
+                                            <field name="description"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Images" name="images">
+                                <field name="project_image_ids" mode="kanban"
+                                       context="{'default_name': name, 'default_real_estate_project_id': active_id}">
+                                    <kanban string="Product Images">
+                                        <field name="name"/>
+                                        <field name="image"/>
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div class="oe_kanban_global_click">
+                                                    <a t-if="!read_only_mode" type="delete"
+                                                       title="Delete"
+                                                       class="fa fa-times pull-right"/>
+                                                    <div class="o_kanban_image">
+                                                        <img t-if="record.image.raw_value"
+                                                             alt="logo"
+                                                             t-att-src="'data:image/png;base64,'+record.image.raw_value"/>
+                                                    </div>
+                                                    <div class="oe_kanban_details">
+                                                        <field name="name"/>
+                                                    </div>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </page>
+
+                            <page string="GeoLocation" name="geo_location">
+                                <group colspan="2" col="2">
+                                    <separator string="GeoLocation" colspan="2"/>
+                                    <button
+                                            string="GeoLocate"
+                                            name="project_geo_localize"
+                                            colspan="2"
+                                            icon="fa-check"
+                                            type="object"/>
+                                    <div>
+                                        <span class="oe_inline">On</span>
+                                        <field name="project_localization" nolabel="1" class="oe_inline"/>
+                                        <span>: Lat :</span>
+                                        <field name="project_latitude" nolabel="1" class="oe_inline"/>
+                                        <span>; Long:</span>
+                                        <field name="project_longitude" nolabel="1" class="oe_inline"/>
+                                        <span>)</span>
+                                    </div>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="real_estate_project_tree_view" model="ir.ui.view">
+            <field name="name">real.estate.project.tree.view</field>
+            <field name="model">real.estate.project</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="developer_id"/>
+                    <field name="project_type_id"/>
+                    <field name="project_facility_ids" widget="many2many_tags"/>
+                    <field name="start_meter_price"/>
+                    <field name="installments_period"/>
+                    <field name="project_percentage"/>
+                    <field name="deposit_percentage"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="real_estate_project_action">
+            <field name="name">Real Estate Project</field>
+            <field name="res_model">real.estate.project</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[]</field>
+            <field name="context">{}</field>
+        </record>
+    </data>
+</odoo>

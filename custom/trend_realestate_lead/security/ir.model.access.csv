@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_crm_team_history,access.crm.team.history,model_crm_team_history,,1,1,1,0
+access_crm_lead_history,access.crm.lead.history,model_crm_lead_history,,1,1,1,1
+crm.access_crm_stage,crm.stage,crm.model_crm_stage,,1,1,0,0
+access_status_type,access_status_type,model_status_type,,1,1,1,1
+access_crm_admin_tag,access_crm_admin_tag,model_crm_admin_tag,,1,1,1,1
+access_available_units_wizard,access_available_units_wizard,model_available_units_wizard,,1,1,1,1
+access_unit_phase,access_unit_phase,model_unit_phase,,1,1,1,1

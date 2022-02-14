@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="product_template_form_view_unit_info_inherit" model="ir.ui.view">
+            <field name="name">product.template.form.view.unit.info.inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <header position="inside">
+                    <button name="change_lock_status" string="Lock Unit" type="object"
+                            attrs="{'invisible': [('is_locked', '=', True)]}"/>
+                    <button name="change_lock_status" string="Unlock Unit" type="object"
+                            attrs="{'invisible': [('is_locked', '=', False)]}"/>
+                </header>
+
+                <page name="purchase" position="after">
+                    <page name="Unit Info" string="Unit Info"
+                          attrs="{'invisible': [('is_real_estate_unit', '=', False)]}">
+                        <group>
+                            <group>
+                                <field name="unit_code"/>
+                                <field name="block_id" domain="[('project_id', '=', real_estate_project_id)]"/>
+                                <field name="view_id"
+                                       domain="['|', ('project_id', '=', real_estate_project_id), ('project_id', '=', False)]"/>
+                                <field name="finish_id"/>
+                                <field name="is_locked" invisible="True"/>
+                            </group>
+                            <group>
+                                <field name="has_garden"/>
+                                <field name="garden_area" attrs="{'invisible': [('has_garden', '=', False)]}"/>
+                                <field name="garden_price" attrs="{'invisible': [('has_garden', '=', False)]}"/>
+                                <field name="unit_type"/>
+                                <field name="number_of_rooms"/>
+                                <field name="number_of_bathrooms"/>
+                            </group>
+                        </group>
+                    </page>
+                </page>
+            </field>
+        </record>
+
+        <record id="internal_unit_type_action" model="ir.actions.act_window">
+            <field name="name">internal.unit.type</field>
+            <field name="res_model">realestate.unit.type</field>
+        </record>
+
+        <menuitem id="internal_unit_type_menu"
+                  name="Internal Unit Type"
+                  parent="sale.menu_sale_config"
+                  action="internal_unit_type_action"
+        />
+
+    </data>
+</odoo>

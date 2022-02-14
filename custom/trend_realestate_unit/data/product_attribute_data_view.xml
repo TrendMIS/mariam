@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="garage_product_attribute" model="product.attribute">
+            <field name="name">Garage</field>
+        </record>
+
+        <record id="roof_product_attribute" model="product.attribute">
+            <field name="name">Roof</field>
+        </record>
+
+        <record id="garden_product_attribute" model="product.attribute">
+            <field name="name">Garden</field>
+        </record>
+
+        <record id="floor_product_attribute" model="product.attribute">
+            <field name="name">Floor</field>
+        </record>
+
+        <record id="unit_type_product_attribute" model="product.attribute">
+            <field name="name">Unit Type</field>
+        </record>
+
+        <record id="furnishing_status_product_attribute" model="product.attribute">
+            <field name="name">Furnishing Status</field>
+        </record>
+    </data>
+</odoo>

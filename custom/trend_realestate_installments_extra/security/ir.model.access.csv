@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_garage_installment,access_garage_installment,model_garage_installment,,1,1,1,1
+access_club_installment,access_club_installment,model_club_installment,,1,1,1,1
